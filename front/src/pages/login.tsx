@@ -1,17 +1,38 @@
 import { GoogleLogin } from "@react-oauth/google";
 import React, { useState } from "react";
 import { Mail } from "lucide-react";
+import { googleLogin } from "@/services/authService";
+import { useNavigate } from "react-router-dom";
+
 
 const Login: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+  const navigate = useNavigate();
+
+  const loginWithGoogle = async (credential: string) => {
+    try {
+      
+      googleLogin({ credential }).then(
+        res=> {
+          console.log(res.message);
+          navigate('/messages');
+        }
+      );
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Google login failed");
+      console.error(err);
+    }
+  };
+
   const handleGoogleSuccess = (credentialResponse: any) => {
     setIsLoading(true);
     setError(null);
     try {
+      console.log("Login successful:", credentialResponse);
       const token = credentialResponse.credential;
-      localStorage.setItem("googleToken", token);
+      loginWithGoogle(token);
       // TODO: Redirect to dashboard after successful login
     } catch (err) {
       setError("Failed to process login. Please try again.");
@@ -63,7 +84,9 @@ const Login: React.FC = () => {
               <div className="w-full border-t border-gray-300"></div>
             </div>
             <div className="relative flex justify-center text-sm">
-              <span className="px-2 bg-white text-gray-500">or continue with</span>
+              <span className="px-2 bg-white text-gray-500">
+                or continue with
+              </span>
             </div>
           </div>
 
@@ -75,7 +98,6 @@ const Login: React.FC = () => {
             Sign in with Email
           </button>
         </div>
-
       </div>
     </div>
   );
