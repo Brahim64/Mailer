@@ -6,12 +6,12 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Login from "./pages/login";
 import App from "./App";
 import Messages from "./pages/Messages";
+import { UserProvider } from "./contexts/userContext";
 
-
-const router= createBrowserRouter([
+const router = createBrowserRouter([
   {
     path: "/",
-    element: <App />, 
+    element: <App />,
     children: [
       {
         path: "messages",
@@ -26,6 +26,7 @@ const router= createBrowserRouter([
 ]);
 createRoot(document.getElementById("root")!).render(
   <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
-    <RouterProvider router={router} />
+    
+      <RouterProvider router={router} />
   </GoogleOAuthProvider>
 );

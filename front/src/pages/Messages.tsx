@@ -16,7 +16,7 @@ export const Messages: React.FC = () => {
             .catch((error) => {
                 console.error('Error fetching user profile:', error);
             });    
-    }, [user]);
+    }, []);
     return (
         <div>
             {user ? `Welcome, ${user.firstName} ${user.familyName}` : 'Loading user...'}

@@ -1,36 +1,36 @@
-import { Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "./ui/sidebar";
-import { Calendar, Home, Inbox, Search, Settings } from 'lucide-react';
+import { SideBarProfile } from "./SideBarProfile";
+import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
+import { Card, CardContent } from "./ui/card";
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarFooter,
+  SidebarGroup,
+  SidebarGroupContent,
+  SidebarGroupLabel,
+  SidebarHeader,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+} from "./ui/sidebar";
+import { Calendar, Home, Inbox, Mail, Search, Settings } from "lucide-react";
 
 const items = [
   {
-    title: "Home",
+    title: "Messages",
     url: "#",
-    icon: Home,
-  },
-  {
-    title: "Inbox",
-    url: "#",
-    icon: Inbox,
-  },
-  {
-    title: "Calendar",
-    url: "#",
-    icon: Calendar,
-  },
-  {
-    title: "Search",
-    url: "#",
-    icon: Search,
+    icon: Mail,
   },
   {
     title: "Settings",
     url: "#",
     icon: Settings,
   },
-]
+];
 export function AppSidebar() {
   return (
     <Sidebar>
+      <SidebarHeader />
       <SidebarContent>
         <SidebarGroup>
           <SidebarGroupLabel>Application</SidebarGroupLabel>
@@ -50,6 +50,9 @@ export function AppSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
+      <SidebarFooter>
+        <SideBarProfile/>
+      </SidebarFooter>
     </Sidebar>
-  )
+  );
 }

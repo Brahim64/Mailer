@@ -30,9 +30,7 @@ const Login: React.FC = () => {
     setIsLoading(true);
     setError(null);
     try {
-      console.log("Login successful:", credentialResponse);
-      const token = credentialResponse.credential;
-      loginWithGoogle(token);
+      loginWithGoogle(credentialResponse.credential);
       // TODO: Redirect to dashboard after successful login
     } catch (err) {
       setError("Failed to process login. Please try again.");
