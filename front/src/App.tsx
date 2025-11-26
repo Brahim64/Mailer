@@ -1,4 +1,4 @@
-import { SidebarProvider, SidebarTrigger } from "./components/ui/sidebar";
+import { SidebarInset, SidebarProvider, SidebarTrigger } from "./components/ui/sidebar";
 import { AppSidebar } from "./components/appSideBar";
 import { Outlet } from "react-router-dom";
 import { UserProvider } from "./contexts/userContext";
@@ -9,10 +9,10 @@ export default function App() {
     <UserProvider>
       <SidebarProvider>
         <AppSidebar />
-        <main>
+        <SidebarInset>
           <SidebarTrigger />
           <Outlet />
-        </main>
+        </SidebarInset>
       </SidebarProvider>
       </UserProvider>
   );

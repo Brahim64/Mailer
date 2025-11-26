@@ -1,5 +1,4 @@
-import { Link } from "react-router-dom";
-import { SideBarProfile } from "./SideBarProfile";
+import { BriefcaseBusiness, Mail, Plus, Settings } from "lucide-react";
 import {
   Sidebar,
   SidebarContent,
@@ -7,47 +6,43 @@ import {
   SidebarGroup,
   SidebarGroupContent,
   SidebarGroupLabel,
-  SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
 } from "./ui/sidebar";
-import { Briefcase, BriefcaseBusiness, Mail, Settings } from "lucide-react";
+import { Input } from "./ui/input";
+import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
+import { Button } from "./ui/button";
+import AddContact from "./addContact";
 
-const items = [
-  {
-    title: "Messages",
-    url: "messages",
-    icon: Mail,
-  },
-  
-  {
-    title: "Jobs",
-    url: "jobs",
-    icon: BriefcaseBusiness,
-  },
-  {
-    title: "Settings",
-    url: "settings",
-    icon: Settings,
-  },
-];
-export function AppSidebar() {
+export function DiscussionSideBar() {
+  const items = [
+    {
+      title: "Inbox",
+      url: "#inbox",
+      icon: Mail,
+    },
+    {
+      title: "Jobs",
+      url: "#jobs",
+      icon: BriefcaseBusiness,
+    },
+  ];
   return (
-    <Sidebar>
-      <SidebarHeader />
+    <Sidebar side="right">
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel>Application</SidebarGroupLabel>
+          <SidebarGroupLabel>Messages</SidebarGroupLabel>
           <SidebarGroupContent>
+            <Input placeholder="Search messages..." className="mb-4" />
             <SidebarMenu>
               {items.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild>
-                    <Link to={item.url} className="flex items-center gap-2">
+                    <a href={item.url}>
                       <item.icon />
                       <span>{item.title}</span>
-                    </Link>
+                    </a>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               ))}
@@ -56,7 +51,8 @@ export function AppSidebar() {
         </SidebarGroup>
       </SidebarContent>
       <SidebarFooter>
-        <SideBarProfile />
+        <AddContact />
+        
       </SidebarFooter>
     </Sidebar>
   );

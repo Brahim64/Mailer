@@ -1,27 +1,21 @@
-import type { User } from '@/models/User';
-import { getUserProfile } from '@/services/UserService';
-import React, { useEffect, useState } from 'react';
+import { DiscussionSideBar } from "@/components/discussionSideBar";
+import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import React from "react";
+import { Outlet } from "react-router-dom";
 
 export const Messages: React.FC = () => {
-
-    const [user, setUser] = useState<User | null>(null);
-
-    
-
-    useEffect(() => {
-        getUserProfile()
-            .then((fetchedUser) => {
-                setUser(fetchedUser);
-            })
-            .catch((error) => {
-                console.error('Error fetching user profile:', error);
-            });    
-    }, []);
-    return (
-        <div>
-            {user ? `Welcome, ${user.firstName} ${user.familyName}` : 'Loading user...'}
-        </div>
-    );
+  return (
+    <div>
+      <SidebarProvider>
+        <DiscussionSideBar />
+        <SidebarInset>
+            <Outlet />
+        </SidebarInset>
+        
+      </SidebarProvider>
+      
+    </div>
+  );
 };
 
 export default Messages;

@@ -7,6 +7,7 @@ import Login from "./pages/login";
 import App from "./App";
 import Messages from "./pages/Messages";
 import { UserProvider } from "./contexts/userContext";
+import Settings from "./pages/settings";
 
 const router = createBrowserRouter([
   {
@@ -17,6 +18,10 @@ const router = createBrowserRouter([
         path: "messages",
         element: <Messages />,
       },
+      {
+        path: "settings",
+        element: <Settings />,
+      }
     ],
   },
   {
