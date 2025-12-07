@@ -1,4 +1,3 @@
-import { BriefcaseBusiness, Mail, Plus, Settings } from "lucide-react";
 import {
   Sidebar,
   SidebarContent,
@@ -11,23 +10,31 @@ import {
   SidebarMenuItem,
 } from "./ui/sidebar";
 import { Input } from "./ui/input";
-import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
-import { Button } from "./ui/button";
 import AddContact from "./addContact";
+import { useEffect, useState } from "react";
+import { fetchChatRooms } from "@/services/chatServices";
+import { useUser } from "@/contexts/userContext";
+import { ChatRoom } from "@/models/chatroom";
+import type { User } from "@/models/User";
 
 export function DiscussionSideBar() {
-  const items = [
-    {
-      title: "Inbox",
-      url: "#inbox",
-      icon: Mail,
-    },
-    {
-      title: "Jobs",
-      url: "#jobs",
-      icon: BriefcaseBusiness,
-    },
-  ];
+  const [chatrooms,setChatrooms] = useState<ChatRoom[]>([]);
+  const [receptients,setReceptients]=useState<User[]>([]);
+
+  const user=useUser();
+
+  useEffect(() => {
+    if (user) {
+      fetchChatRooms(user!.id)
+      .then((data) => {
+        setChatrooms(data);
+        console.log("Chat rooms retrieved:", data);
+      })
+      .catch((error) => {
+        console.error("Error fetching chat rooms:", error);
+      });
+    }
+  }, [user]);
   return (
     <Sidebar side="right">
       <SidebarContent>
@@ -36,15 +43,16 @@ export function DiscussionSideBar() {
           <SidebarGroupContent>
             <Input placeholder="Search messages..." className="mb-4" />
             <SidebarMenu>
-              {items.map((item) => (
-                <SidebarMenuItem key={item.title}>
+              {chatrooms.map((chatroom) => (
+                
+                <SidebarMenuItem key={chatroom._id}>
                   <SidebarMenuButton asChild>
-                    <a href={item.url}>
-                      <item.icon />
-                      <span>{item.title}</span>
-                    </a>
+                    <div className="flex flex-col">
+                      <span className="font-medium">{chatroom.metaData.users['100578459061123837692'].name}</span>
+                    </div>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
+                
               ))}
             </SidebarMenu>
           </SidebarGroupContent>
