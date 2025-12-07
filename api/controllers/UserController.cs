@@ -14,11 +14,13 @@ namespace api.controllers
     public class UserController : ControllerBase
     {
         private readonly AuthService _authService;
-        public UserController(AuthService authService)
+        private readonly UserService _userService;
+        public UserController(AuthService authService, UserService userService)
         {
             _authService = authService;
+            _userService = userService;
         }
-
+        [HttpGet("me")]
         public async Task<IActionResult> GetMe()
         {
             var token = Request.Cookies["AUTH_TOKEN"];
@@ -30,5 +32,17 @@ namespace api.controllers
             User user = userInfo.MapFromGooglePayload();
             return Ok(user);
         }
+        [HttpGet("by-email")]
+        public async Task<IActionResult> GetUserByEmail(string email)
+        {
+            var user = await _userService.GetUserByEmailAsync(email);
+            if (user == null)
+            {
+                return NotFound(new { message = "User not found" });
+            }
+            return Ok(user);
+        }
+
+
     }
 }

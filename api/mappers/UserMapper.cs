@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using api.models;
+using api.models.dtos;
 
 namespace api.mappers
 {
@@ -20,6 +21,17 @@ namespace api.mappers
                 ProfileImage = payload.ProfileImage,
                 FirstName = payload.FirstName,
                 FamilyName = payload.FamilyName
+            };
+        }
+        public static UserDto MapToUserDto(this User user)
+        {
+            return new UserDto
+            {
+                Issuer = user.Issuer,
+                Email = user.Email,
+                EmailVerified = user.EmailVerified,
+                Name = user.Name,
+                ProfileImage = user.ProfileImage
             };
         }
     }

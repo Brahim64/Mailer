@@ -22,11 +22,23 @@ namespace api.services
         {
             return await _context.Users.AnyAsync(u => u.Email == email);
         }
+        public async Task<User?> GetUserByEmailAsync(string email)
+        {
+            return await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
+        }
+        public async Task<User?> GetUserByIdAsync(int id)
+        {
+            return await _context.Users.FindAsync(id);
+        }
         public async Task CreateUserAsync(GoogleUserInfo googleUser)
         {
             User user = googleUser.MapFromGooglePayload();
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
+        }
+        public async Task<List<User>> GetUsersByIdsAsync(List<string> userIds)
+        {
+            return await _context.Users.Where(u => userIds.Contains(u.Id)).ToListAsync();
         }
     }
 }
