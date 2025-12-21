@@ -16,10 +16,7 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
       .then((res) => {
         if (res) {
           setUser(res);
-          console.log("Fetched user:", res);
         } else {
-            
-          console.log("Fetched user:", res);
           navigate("/login");
         }
       })

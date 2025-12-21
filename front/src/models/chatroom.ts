@@ -1,15 +1,16 @@
 
 export interface IChatUser {
+  id:string;
   issuer: string;
   email: string;
   emailverified: boolean; // converted from "true"/"false" string
   name: string;
-  profileimage: string;
+  profileImage: string;
 }
 
 export interface IMetaData {
   createdat: string; // ISO date string
-  users: Record<string, IChatUser>; // keyed by userId
+  users: IChatUser[]; // keyed by userId
 }
 
 export interface IChatRoom {
@@ -30,31 +31,31 @@ export interface IMessage {
 
 
 export class ChatUser implements IChatUser {
+  id:string;
   issuer: string;
   email: string;
   emailverified: boolean;
   name: string;
-  profileimage: string;
+  profileImage: string;
 
   constructor(data: any) {
+    this.id = data.id;
     this.issuer = data.issuer;
     this.email = data.email;
     this.emailverified = data.emailverified === "true";
     this.name = data.name;
-    this.profileimage = data.profileimage;
+    this.profileImage = data.profileImage;
   }
 }
 
 export class MetaData implements IMetaData {
   createdat: string;
-  users: Record<string, ChatUser>;
-  lastmessage?: Message;
+  users: ChatUser[];
+  lastMessage?: Message;
 
   constructor(data: any) {
     this.createdat = data.createdat.$date;
-    this.users = Object.fromEntries(
-      Object.entries(data.users).map(([id, u]) => [id, new ChatUser(u)])
-    );
+    this.users = data.users.map((u: any) => new ChatUser(u));
   }
 }
 

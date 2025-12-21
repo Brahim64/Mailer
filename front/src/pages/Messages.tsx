@@ -1,5 +1,5 @@
 import { DiscussionSideBar } from "@/components/discussionSideBar";
-import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import React from "react";
 import { Outlet } from "react-router-dom";
 
