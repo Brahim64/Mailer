@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using api.models;
+using api.models.requests;
 using api.services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -32,8 +33,26 @@ namespace api.controllers
             var chatRooms=await _chatRoomService.GetUserChatRoomsAsync(userId);
             return Ok(chatRooms);
         }
-        
-    }
+        [HttpGet("chatroom/{roomId}")]
+        public async Task<IActionResult> GetChatRoomById([FromRoute] string roomId)
+        {
+            var chatRoom=await _chatRoomService.GetChatRoomByIdAsync(roomId);
+            return Ok(chatRoom);
+        }
 
-    
+        [HttpGet("{roomId}/messages")]
+        public async Task<IActionResult> GetMessages([FromRoute] string roomId)
+        {
+            var messages = await _messageService.GetMessagesByChatRoomIdAsync(roomId);
+            return Ok(messages);
+        }
+
+        [HttpPost("send-message")]
+        public async Task<IActionResult> SendMessage([FromBody] MessageRequest request)
+        {
+            await _messageService.SendMessageAsync(request.RoomId, request.SenderId, request.Content);
+            return Ok(new { message = "Message sent successfully" });
+        }
+    }
 }
+

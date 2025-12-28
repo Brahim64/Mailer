@@ -35,5 +35,10 @@ namespace api.services
             await _messageRepository.DeleteMessageAsync(messageId);
         }
 
+        public async Task<List<Message>> GetMessagesByChatRoomIdAsync(string chatRoomId)
+        {
+            return await _messageRepository.GetMessagesByChatRoomIdAsync(chatRoomId);
+        }
+
     }
 }

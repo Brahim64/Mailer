@@ -22,19 +22,20 @@ namespace api.services
         public async Task<ChatRoom> CreateChatRoomAsync( List<string> memberIds)
         {
             List<User> users=await _UserContext.Users.Where(u=>memberIds.Contains(u.Id)).ToListAsync();
-            Dictionary<string,UserDto> userDTOs=[];
+            List<UserDto> userDTOs=[];
 
             foreach(var user in users)
             {
-                userDTOs[user.Id]=new UserDto
+                userDTOs.Add(new UserDto
                 {
+                    Id=user.Id,
                     Issuer=user.Issuer,
                     ProfileImage=user.ProfileImage,
                     Email=user.Email,
                     Name=user.Name,
                     EmailVerified=user.EmailVerified
 
-                };
+                });
             }
             ChatRoomMetaData ChatRoomMetaData=new ChatRoomMetaData
             {
@@ -60,6 +61,11 @@ namespace api.services
         {
             return await _chatRoomRepository.GetUserChatRoomsAsync(userId);    
             
+        }
+
+        public async Task<ChatRoom> GetChatRoomByIdAsync(string roomId)
+        {
+            return await _chatRoomRepository.GetChatRoomByIdAsync(roomId);
         }
     }
 }

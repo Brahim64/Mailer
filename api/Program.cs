@@ -1,4 +1,5 @@
 using api.data;
+using api.hubs;
 using api.models;
 using api.repositories;
 using api.services;
@@ -13,6 +14,8 @@ builder.Services.AddOpenApi();
 builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
 builder.Services.AddHttpClient<AuthService>();
+builder.Services.AddSignalR();
+
 
 builder.Services.AddScoped<AuthService>();
 builder.Services.AddScoped<UserService>();
@@ -67,6 +70,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+app.MapHub<ChatHub>("/chatHub");
 
 app.UseHttpsRedirection();
 app.MapControllers();

@@ -7,6 +7,8 @@ namespace api.models.dtos
 {
     public class UserDto
     {
+        public string Id { get; set; }
+
         public string Issuer { get; set; }
 
         public string Email { get; set; }

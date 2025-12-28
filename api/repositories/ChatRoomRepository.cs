@@ -42,5 +42,11 @@ namespace api.repositories
             await _collection.UpdateOneAsync(cr => cr.Id == roomId, update);
             return lastMessage;
         }
+        public async Task<ChatRoom> GetChatRoomByIdAsync(string roomId)
+        {
+            var filter = Builders<ChatRoom>.Filter.Eq(cr => cr.Id, roomId);
+            var chatRoom = await _collection.Find(filter).FirstOrDefaultAsync();
+            return chatRoom;
+        }
     }
 }
