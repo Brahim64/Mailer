@@ -12,19 +12,19 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "./ui/sidebar";
-import { Briefcase, BriefcaseBusiness, Mail, Settings } from "lucide-react";
+import { BriefcaseBusiness, Mail, MessageCircle, Settings } from "lucide-react";
 
 const items = [
   {
     title: "Messages",
     url: "messages",
-    icon: Mail,
+    icon: MessageCircle,
   },
   
   {
-    title: "Jobs",
-    url: "jobs",
-    icon: BriefcaseBusiness,
+    title: "Mails",
+    url: "mails",
+    icon: Mail,
   },
   {
     title: "Settings",

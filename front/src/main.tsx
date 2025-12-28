@@ -8,6 +8,8 @@ import App from "./App";
 import Messages from "./pages/Messages";
 import { UserProvider } from "./contexts/userContext";
 import Settings from "./pages/settings";
+import { Discussion } from "./components/discussion";
+import Mails from "./pages/mails";
 
 const router = createBrowserRouter([
   {
@@ -17,10 +19,20 @@ const router = createBrowserRouter([
       {
         path: "messages",
         element: <Messages />,
+        children: [
+          {
+            path: ":id",
+            element: <Discussion />,
+          },
+        ],
       },
       {
         path: "settings",
         element: <Settings />,
+      },
+      {
+        path: "mails",
+        element: <Mails />,
       }
     ],
   },
